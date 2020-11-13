@@ -1,0 +1,60 @@
+version: '3.8'
+
+volumes:
+    media_backend:
+
+services:
+    nginx: 
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile.prod
+        restart: always
+        container_name: "csdw_nginx_prod"
+        volumes:
+            - ./frontend/dist/frontend:/var/www/angular_build
+            - ./api/media/authentication:/opt/django/media/authentication   
+            - ./api/media/ext_news:/opt/django/media/ext_news                
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - frontend
+    
+    frontend:
+        build: 
+            context: ./frontend
+            dockerfile: Dockerfile.prod
+        container_name: "csdw_front_prod"
+        volumes:
+            - ./frontend:/opt/csdw/frontend
+            - /opt/csdw/frontend/node_modules
+            - media_backend:/opt/csdw/frontend/src/assets/backend
+        depends_on:
+            - api
+    
+    postgres:
+        image: postgres:12-alpine
+        restart: always
+        container_name: "csdw_postgresql_prod"
+        ports:
+            - "5432"
+        environment:
+            POSTGRES_PASSWORD: Admin123!
+            POSTGRES_USER: admin
+            POSTGRES_DB: postgresql
+
+    api:
+        build: ./api
+        restart: always
+        container_name: "csdw_api_prod"
+        volumes:
+            - ./api:/opt/csdw/api
+            - media_backend:/opt/csdw/api/media
+        environment:
+            DJANGO_DEBUG: 0
+            DB_HOST: 'csdw_postgresql_prod'
+        ports:
+            - "8000"
+        depends_on:
+            - postgres
+        command: gunicorn --reload wsgi:application -w 2 -b :8000 -t 120

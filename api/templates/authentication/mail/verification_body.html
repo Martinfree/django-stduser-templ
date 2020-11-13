@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/c45234929a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div style="background-color: #273959; height: 85px; width: 600px; position: absolute; display: flex; align-items: center; justify-content: space-around;">
+    <div style="font-size: 16px; color: #f1efe6; width: 70px; height: 70px; position: relative; left: 20px;">
+    </div>
+    <div style="color: #f1efe6; font-size: 14px; width: fit-content; height: fit-content; padding-top: 5%;padding-left: 8%;">ЛУЦЬКИЙ НАЦІОНАЛЬНИЙ ТEХНІЧНИЙ УНІВЕРСИТЕТ</div>
+  </div>
+
+<div style="background-color: #f1efe6; height: 50px; width: 600px; position: relative; top:170px">
+    <div style="font-size: 16px; color: #77786f; text-align: center; width: 600px; height: 30px; padding-top: 20px; text-decoration: none;">ВІТАЮ ВАС {{user}}</div>
+</div>
+
+<div style="background-color: #f1efe6; height: 170px; width: 600px; position: relative; top: 200px">
+  <div style="float: left; height: 40px;width: 600px; font-size: 16px; color: #77786f; text-align: left; padding-top: 10px; text-align: center;"> Шановний, користувач!!! </div>
+  <div style="float: left; height: 70px;width: 600px; font-size: 14px; color: #77786f; text-align: center"> Вітаємо вас, ви зареєстровані на сайті кафедри компʼютерної інженерії та кібербезпеки Луцького НТУ. Щоб підтвердити свою пошту перейдіть по посиланню.</div>
+
+  <div style="float: left; padding-left: 257px; padding-top: 20px">
+    <a href="https://{{ HOST }}{% url VERIFICATION_URL code=code %}"><button style="background-color: #6bcad4; width: 100px; height: 25px; font-size: 12px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: none;">Підтвердити особу</button></a>
+  </div>
+</div>
+
+<div style="background-color: #273959; height: 85px; width: 600px; position: relative; top: 230px">
+  <div style="float: left; height: 170px; width: 300px; text-align: center">
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 30px" class="fab fa-facebook"></i></a>
+  </div>
+</div>
+</body>
+</html>

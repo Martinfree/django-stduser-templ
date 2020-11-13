@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/c45234929a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div style="background-color: #273959; height: 85px; width: 600px; position: absolute; display: flex; align-items: center;">
+    <div style="font-size: 16px; color: #f1efe6; width: 70px; height: 70px; position: relative; left: 20px;">
+      <img src="http://18.156.34.92/assets/img/l2-3.svg" alt="">
+    </div>
+    <div style="font-size: 12px;color: #f1efe6;width: 475px;position: relative;display: flex; align-items: center;left: 165px;">ЛУЦЬКИЙ НАЦІОНАЛЬНИЙ ТEХНІЧНИЙ УНІВЕРСИТЕТ</div>
+  </div>
+
+{% for d in data %}
+<div style="background-color: #f1efe6; height: 50px; width: 600px; position: relative; top:170px">
+  <div style="font-size: 16px; color: #77786f; text-align: center; width: 600px; height: 30px; padding-top: 20px">ДАЙДЖЕСТ НОВИН ЗА ТИЖДЕНЬ</div>
+</div>
+
+<div style="background-color: #f1efe6; height: 170px; width: 600px; position: relative; top: 200px">
+  <img style="float: left; width: 270px; height: 170px" src="{{ d.images_link }}" alt="NO IMAGE">
+  <div style="float: left; height: 40px;width: 330px; font-size: 16px; color: #77786f; text-align: center; padding-top: 10px"> {{d.title}} </div>
+  <div style="float: left; height: 70px;width: 330px; font-size: 14px; color: #77786f; text-align: center"> {{d.description}} </div>
+
+  <div style="float: left; padding-left: 210px; padding-top: 20px">
+    <a href="{{url}}"><button style="background-color: #6bcad4; width: 100px; height: 25px; font-size: 12px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: none">Читати далі</button></a>
+  </div>
+</div>
+{% endfor %}
+<div style="background-color: #273959; height: 170px; width: 600px; position: relative; top: 230px">
+  <div style="float: left; height: 170px; width: 300px; text-align: center">
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 60px" class="fab fa-facebook"></i></a>
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 60px" class="fab fa-instagram"></i></a>
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 60px" class="fab fa-twitter-square"></i></a>
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 60px" class="fab fa-whatsapp-square"></i></a>
+    <a href=" # "><i style="color: white; font-size: 40px; padding-left: 5px; padding-right: 5px; padding-top: 60px" class="fab fa-telegram"></i></a>
+    <a style="text-decoration: none" href=" # "><p style="color: #f1efe6; padding-top: 20px">Відписатися від розсилки</p></a>
+  </div>
+
+  <div style="float: left; height: 170px; width: 300px; text-align: justify; text-align-last: center">
+    <p style="color: #f1efe6; font-size: 12px; padding-right: 10px; padding-top: 20px">Всі права на статті, ілюстрації і інші матеріали належать Луцькому національному технічному університету і охороняються законом. Відтворення в будь-якій формі вцілому чи частково будь-яких статтів, ілюстрацій, рекламних чи інших матеріалів без попереднього письмового дозволу ЗАБОРОНЯЄТЬСЯ.</p>
+  </div>
+</div>
+
+</body>
+</html>
+
+

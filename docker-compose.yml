@@ -1,0 +1,36 @@
+version: '3.8'
+
+
+volumes:
+    django_static:
+
+
+services:
+    postgres:
+        image: postgres:12-alpine
+        restart: always
+        container_name: "postgresql"
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: Admin123!
+            POSTGRES_USER: admin
+            POSTGRES_DB: postgresql
+
+    api:
+        build: ./api
+        restart: always
+        container_name: "django_api"
+        volumes:
+            - django_static:/opt/proj/api/static
+            - ./api:/opt/proj/api
+            - ./api/apps:/opt/proj/api/apps
+            - ./api/media/authentication:/opt/proj/api/media/authentication
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+        environment:
+            DJANGO_DEBUG: 1
+            DB_HOST: 'postgresql'
+        command: gunicorn --reload wsgi:application -w 2 -b :8000 -t 120

@@ -1,0 +1,35 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+mongoenv/
+.idea/
+
+# Django
+*.sqlite3
+*.pyc
+__pycache__/
+## Tests coverage
+.coverage
+.coveragerc
+**/**/htmlcov
+
+## Migrations
+**/**/migrations
+
+## Media
+static/
+api/media/
+**/**/collected_static
+**/**/*.zip
+
+## Logs
+api/logs/*
+**/**/*.log
+
+# Angular
+**/**/.sass-cache/
+**/**/node_modules/
+
