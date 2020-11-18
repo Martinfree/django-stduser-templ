@@ -7,20 +7,6 @@ from django.core.management.base import BaseCommand
 
 from apps.authentication.models import StdUser
 
-from apps.department.models import(Profession,
-                                   Faculty,
-                                   AcadGroup,
-                                   Classes, Mark,
-                                   Activity, Summary,
-                                   Partner, Labour,
-                                   Article, Student,
-                                   Teacher, Images)
-from apps.mailing.models import Message
-from apps.task.models import Task
-from apps.news.models import NewsInt, News
-from apps.schedule.models import (Schedule, Calendar, TimeTable, Attendance)
-from apps.subjects.models import Lesson
-
 from settings.tests import *
 
 TEST_PASSWORD = "Admin123!"
@@ -76,8 +62,6 @@ class Command(BaseCommand):
         self.moderator.first_name = fake.first_name_male()
         self.moderator.save()
 
-        self.print("Creating profession")
-        self.profession = Profession.objects.create(name=TEST_PROFESSION)
 
         self.print("Creating faculty")
         self.faculty = Faculty.objects.create(name=TEST_FACULTY,short_name=TEST_FACULTY_SHORT,faculty_head=self.moderator)
@@ -124,7 +108,6 @@ class Command(BaseCommand):
         self.print("Creating student")
         self.student = StdUser.objects.create_student(
                 email=emails[5],
-                profession=self.profession,
                 group=self.group,
                 faculty=self.faculty,
                 password=TEST_PASSWORD)
@@ -145,182 +128,4 @@ class Command(BaseCommand):
         self.user2.first_name = fake.first_name_male()
         self.user2.last_name  = fake.last_name_male()
 
-        for i in range(1, 10):
-            self.print("Creating int_news #{}".format(i))
-            self.int_news = NewsInt.objects.create(
-                    title=fake.bs(),
-                    content=fake.paragraph(),
-                    author=self.user)
 
-        for i in range(1, 10):
-            self.print("Creating ext_news (is_checked=True) #{}".format(i))
-            self.ext_news = News.objects.create(
-                    title=fake.bs(),
-                    description=fake.catch_phrase(),
-                    is_checked=True)
-
-        for i in range(1, 4):
-            self.print("Creating ext_news (is_checked=False) #{}".format(i))
-            self.ext_news = News.objects.create(
-                    title=(TEST_TITLE2 + "_" + str(i)),
-                    description=TEST_DESCR,
-                    is_checked=False)
-
-        self.print("Creating class")
-        self.classes = Classes.objects.create(
-                name=fake.bs(),
-                short_name=fake.word(),
-                faculty=self.faculty,
-                faculty_head=self.moderator,
-                description=fake.text(max_nb_chars=7))
-
-        for i in range(1, 6):
-            self.print("Creating lesson {}".format(i))
-            self.lesson=Lesson.objects.create(
-                name=fake.word(),
-                classroom=TEST_CLASSROOM,
-                year=2020,
-                amount=TEST_AMOUNT,
-                type=TEST_TYPE,
-                credit=False,
-                course_work=False,
-                exam=False,
-                classes=self.classes,
-                teacher=self.teacher,
-                description=fake.text(max_nb_chars=23))
-
-        for i in range(1, 6):
-            self.print("Creating schedules #{}".format(i))
-            self.schedule = Schedule.objects.create(
-                    time=fake.future_datetime(),
-                date=DAYS[i-1],
-                week=TEST_WEEK,
-                number=1,
-                lesson=self.lesson,
-                teacher=self.teacher,
-                group=self.group)
-
-        for i in range(1, 6):
-            self.print("Creating schedules #{}".format(i))
-            self.schedule = Schedule.objects.create(
-                time=fake.future_datetime(),
-                date=DAYS[i-1],
-                week=TEST_WEEK,
-                number=1,
-                lesson=self.lesson,
-                teacher=self.teacher,
-                group=self.group)
-
-        for i in range(1, 6):
-            self.print("Creating schedules #{}".format(i))
-            self.schedule = Schedule.objects.create(
-                time=fake.future_datetime(),
-                date=DAYS[i-1],
-                week=TEST_WEEK,
-                number=1,
-                lesson=self.lesson,
-                teacher=self.teacher,
-                group=self.group)
-
-        les = Lesson.objects.all().filter()
-
-        for i in range(1, 5):
-            self.print("Creating mark {}".format(i))
-            self.mark = Mark.objects.create(
-                    lesson=les[i],
-                    student=self.student,
-                    mark=fake.random_int(min=0,max=100))
-
-        for i in range(1, 4):
-            self.print("Creating calendar events #{}".format(i))
-            self.calendar = Calendar.objects.create(
-                    name=fake.text(max_nb_chars=31),
-                    date=fake.future_datetime(),
-                    description=fake.text(max_nb_chars=20),
-                    author=self.teacher.email)
-
-        self.print("Creating summary")
-        self.summary = Summary.objects.create(
-                academy_link=fake.url(),
-                is_visible=True,
-                description=fake.paragraph,
-                teacher=self.teacher)
-
-        self.print("Creating image")
-        self.t_image = Images.objects.create(
-                description=fake.paragraph(),
-                image=self.get_image_file(),
-                author_user=self.user)
-
-        self.print("Creating labour")
-        self.labour = Labour.objects.create(
-                author=self.user,
-                file_link = fake.url(),
-                description = fake.paragraph(),
-                is_visible=True)
-
-        self.print("Creating partner")
-        self.partner = Partner.objects.create(
-                is_international=True,
-                site_link=fake.url(),
-                description=fake.company())
-
-        for i in range(1, 20):
-            self.print("Creating activity #" + str(i))
-            self.activity  = Activity.objects.create(
-                title=fake.text(max_nb_chars=20),
-                is_visible=True,
-                description=fake.paragraph(),
-                user=self.user)
-
-        self.print("Creating timetable")
-        self.timetable = TimeTable.objects.create(
-                number="1",
-                begin=TIME_BEGIN,
-                end=TIME_END)
-
-        self.print("Creating class")
-        self.classes = Classes.objects.create(
-                name=TEST_TDIR,
-                short_name=TEST_SHTDIR,
-                faculty=self.faculty,
-                faculty_head=self.moderator,
-                description=TEST_DESCRIPTION_ST)
-
-        for i in range(1, 20):
-            self.print("Creating article #" + str(i))
-            self.article = Article.objects.create(
-                title = fake.bs(),
-                library_code = fake.credit_card_number(),
-                authors = TEST_AUTHORS,
-                release_date = TEST_DATE.format(str(10)),
-                place_of_publication = TEST_ARRAY_CHAR,
-                file = None,
-                external_link = fake.url(),
-                annotation = fake.sentence(),
-                photo = self.get_image_file(),
-                owner = self.teacher_1,
-                users_with_access = TEST_ARRAY_INT,
-                teacher = self.teacher_1,
-                classes = self.classes)
-
-        for i in range(1, 5):
-            self.print("Creating attendance {}".format(i))
-            self.attendance = Attendance.objects.create(
-                missed = i * 10,
-                student = self.student,
-                lesson = les[i])
-
-        self.print("Creating message")
-        self.message = Message.objects.create(
-            title=fake.bs(),
-            description=fake.text(max_nb_chars=7),
-            urls=TEST_URLS,
-            group_id=self.group.id,
-            teacher_id=self.teacher.id)
-
-        self.print("Creating task")
-        self.task = Task.objects.create(
-            subject="dssw",
-            mark=20,
-            lab_counter=1)
